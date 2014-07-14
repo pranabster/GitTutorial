@@ -1,3 +1,119 @@
 1. git clone url -> clones the repository from the github.
 2. git status -> will tell me what all the changes (any untrcked files)
 3. git add file filename -> will  move the file into the staging area i.e. the git will start tracking the file
+4. git commit ->commits the changes to the repository
+5. git diff -> shows the changes in the working copy and the staging area
+6. git diff --cached  -> shows the changes in the files added in the staging area(if the file is already added to the staging area)
+7. git log -> shows all the commit logs 
+8. git log --oneline  -> shows only the commit messages and not the hash, author etc
+9. git commit -a -m "message" -> adds and then commits the changes to the repository
+
+To initilize a remote repo
+1. log in to github and create the repository
+2. copy the ssh link for the repository
+3. start eclipse and then create the project
+4. start the terminal and get into the project folder
+5. git init -> this will initialyze the project with the .git folder wiht the required folders
+6. git add . -> adds the content of the project into the local git staging area
+7. git commit -m "message"
+6. git remote add "name" "remote github ssh link" -> e.g. -> git remote add origin pranabster@git...
+7. git push "name" "branchname" ->e.g. -> git push  origin master -> this will sync the project with the remote repository
+
+
+branching:
+0. get into the project flder
+1. git branch -> shows all the branches
+2. git branch "new branch name" -> e.g. -> git branch branch2 -> creates the new branch
+3. git checkout branch2 -> switches to branch2
+4. git clone "repositoey ssh link"  -> done by the new developers to get a copy of the project
+
+============================================================================================================================================
+Problem statement: 
+1. A application is being developed. The first release was worked on by Team1
+2. The first release i.e. v1.0 was done from master branch
+3. New features are to be developed by two twams now who will work parellely
+4. if any defect fix has to be done then it has to be from the master branch
+5. following discusses the approach
+
+team1 :
+created the project 
+all the code now lies in the github remote repository
+released the version v1.0 to prod
+
+New features are to be added for release 2
+two teams are identified for the code development
+team1 will work on r2_index branch
+team2 will work on the r2_contact branch
+
+Team1:
+git branch  -> shows the master branch
+git branch r2_index ->creates the r2_indeb branch 
+git branch  -> now shows both the branches
+git checkout r2_index  -> moves team1 developer to the r2_index branch
+
+
+Team 2:
+git clone “master github remote repository SSH url” -> gets the project into the local 
+git branch
+git branch r2_contact
+git checkout r2_contact
+make the code modification
+git add .
+git commit -m “message”
+git add remote “remote github repo name” “remote github repo ssh url”
+git push “remote github repo name” r2_contacts
+
+
+Team1 : has to work on a defect fix - 1. so the developer pushes his changes into the r2_ibdex branch and then moves into the master branch to to do the code fix
+git branch
+git add .
+git commit -m “message - the changes for r2_index”
+git push r2_index
+
+moving in the master branch for code fix
+git checkout master ->moves team1 from r2_index branch to the master branch
+add code to fix the bug
+git add .
+git commit -m “message”
+git push master
+release code with fix to prod
+
+Now the defect fixes needs to merge to both r2_index and r2_contacts
+
+team1 :
+is on the r2_index and would like to merge the changes from master into the r2_index. 
+git branch  - >make sure that you are on the r2_index
+git checkout r2_index  -> if he is not on the r2_index branch, moves him into the r2_index branch
+
+merge command :
+ git merge master   -> you may notice merge conflicts while merging, if same files and lines were worked on
+
+Team2:
+knows that there are some changes(defect fix) committed into the master branch by team1
+They will have to pull the changes from the master and merge it into the r2_contact branch
+ - Pull is similar to merge but Pull synchronises local repository with the remote repository
+ - Merge works on two local repository i.e. both the master and the r2_index were on the local repository
+ - Pull merges the contents of remote repo to the local repo
+ - team2 is still on the r2_contacts branch
+
+
+git pull “remote repo name” “remote branch name from where to pull from” ->e.g. -> git pull github master
+
+now team2 can merge the changes from master into the r2_contacts
+ - be on the r2_contacts branch and issue the merge command
+
+git checkout r2_contacts
+git merge master
+
+Team2 works on the development and finishes their changes
+git add .
+git commit -m “message”
+git push github r2_contacts
+
+
+ok now both the individual branch changes are done - > we need to merge the changes back to the master branch
+
+Team2 :
+git checkout master -> moves on the master branch i.e. while on the master branch merge the changes from r2_contacts
+git merge r2_contacts -> merges changes from r2_contacts to master
+
