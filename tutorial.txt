@@ -1,12 +1,13 @@
 1. git clone url -> clones the repository from the github.
 2. git status -> will tell me what all the changes (any untrcked files)
 3. git add file filename -> will  move the file into the staging area i.e. the git will start tracking the file
-4. git commit ->commits the changes to the repository
+4. git commit -m "message" ->commits the changes to the repository
 5. git diff -> shows the changes in the working copy and the staging area
 6. git diff --cached  -> shows the changes in the files added in the staging area(if the file is already added to the staging area)
 7. git log -> shows all the commit logs 
 8. git log --oneline  -> shows only the commit messages and not the hash, author etc
 9. git commit -a -m "message" -> adds and then commits the changes to the repository
+10.git rm --cached [file]  -> remove a file from the index ( = staging area = cache) without removing it from the file system?
 
 To initilize a remote repo
 1. log in to github and create the repository
